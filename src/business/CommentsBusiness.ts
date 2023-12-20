@@ -1,6 +1,7 @@
 import { CommentsDatabase } from "../database/CommentsDatabase";
 import { CreateCommentsInputDTO, CreateCommentsOutputDTO } from "../dtos/comments/createComments.dto";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
+import { Comment } from "../models/Comment";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
 

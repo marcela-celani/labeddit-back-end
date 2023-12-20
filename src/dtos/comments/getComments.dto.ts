@@ -1,11 +1,11 @@
 import z from 'zod'
-import { PostModel } from '../../models/Post'
+import { CommentModel } from '../../models/Comment'
 
 export interface GetCommentsInputDTO {
     token: string
 }
 
-export type GetCommentsOutputDTO = PostModel[]
+export type GetCommentsOutputDTO = CommentModel[]
 
 export const GetCommentsSchema = z.object({
     token: z.string()

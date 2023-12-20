@@ -3,24 +3,20 @@ import { CommentsController } from '../controller/CommentsController'
 import { CommentsBusiness } from '../business/CommentsBusiness'
 import { IdGenerator } from '../services/IdGenerator'
 import { TokenManager } from '../services/TokenManager'
-import { PostsDatabase } from '../database/PostsDatabase'
+import { CommentsDatabase } from '../database/CommentsDatabase'
 
 export const commentsRouter = express.Router()
 
 const commentsController = new CommentsController(
     new CommentsBusiness(
-        new PostsDatabase(),
+        new CommentsDatabase(),
         new IdGenerator(),
         new TokenManager()
     )
 )
 
-commentsRouter.post("/", commentsController.createComment)
+commentsRouter.post("/:id", commentsController.createComment)
 
-commentsRouter.get("/", commentsController.getComments)
+//commentsRouter.get("/", commentsController.getComments)
 
-commentsRouter.put("/:id", commentsController.editComment)
-
-commentsRouter.delete("/:id", commentsController.deleteComment)
-
-commentsRouter.put("/:id/like", commentsController.likeOrDislikeComment)
+//commentsRouter.put("/:id/like", commentsController.likeOrDislikeComment)

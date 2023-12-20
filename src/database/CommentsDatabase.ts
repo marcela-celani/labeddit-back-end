@@ -1,4 +1,5 @@
-import { CommentDB } from "../models/Comments";
+
+import { CommentDB } from "../models/Comment";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class CommentsDatabase extends BaseDatabase {
