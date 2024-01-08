@@ -4,7 +4,7 @@ import { UserDatabase } from "./UserDatabase";
 
 export class PostsDatabase extends BaseDatabase {
   public static TABLE_POSTS = "posts"
-  public static TABLE_LIKES_DISLIKES = "likes_dislikes"
+  public static TABLE_LIKES_DISLIKES_POSTS = "likes_dislikes_posts"
   // metodos database
 
 
@@ -83,7 +83,7 @@ export class PostsDatabase extends BaseDatabase {
 
   public findLikeDislike = async (likeDislikeDB: LikeDislikeDB): Promise<POST_LIKES | undefined> => {
     const [result] = await BaseDatabase
-      .connection(PostsDatabase.TABLE_LIKES_DISLIKES)
+      .connection(PostsDatabase.TABLE_LIKES_DISLIKES_POSTS)
       .select()
       .where({
         user_id: likeDislikeDB.user_id,
@@ -101,7 +101,7 @@ export class PostsDatabase extends BaseDatabase {
 
   public removeLikeDislike = async (likeDislikeDB: LikeDislikeDB): Promise<void> => {
     await BaseDatabase
-      .connection(PostsDatabase.TABLE_LIKES_DISLIKES)
+      .connection(PostsDatabase.TABLE_LIKES_DISLIKES_POSTS)
       .delete()
       .where({
         user_id: likeDislikeDB.user_id,
@@ -112,7 +112,7 @@ export class PostsDatabase extends BaseDatabase {
 
   public updateLikeDislike = async (likeDislikeDB: LikeDislikeDB) => {
     await BaseDatabase
-      .connection(PostsDatabase.TABLE_LIKES_DISLIKES)
+      .connection(PostsDatabase.TABLE_LIKES_DISLIKES_POSTS)
       .update(likeDislikeDB)
       .where({
         user_id: likeDislikeDB.user_id,
@@ -122,7 +122,7 @@ export class PostsDatabase extends BaseDatabase {
 
   public insertLikeDislike = async (likeDislikeDB: LikeDislikeDB) => {
     await BaseDatabase
-      .connection(PostsDatabase.TABLE_LIKES_DISLIKES)
+      .connection(PostsDatabase.TABLE_LIKES_DISLIKES_POSTS)
       .insert(likeDislikeDB)
   }
 

@@ -82,7 +82,9 @@ CREATE TABLE
         user_id TEXT NOT NULL,
         comment_id TEXT NOT NULL,
         like INTEGER NOT NULL,
-        FOREIGN KEY (user_id) REFERENCES users (id) ON UPDATE CASCADE ON DELETE CASCADE,
+        FOREIGN KEY (user_id) REFERENCES users (id) 
+        ON UPDATE CASCADE 
+        ON DELETE CASCADE,
         FOREIGN KEY (comment_id) REFERENCES comments (id) 
         ON UPDATE CASCADE 
         ON DELETE CASCADE
