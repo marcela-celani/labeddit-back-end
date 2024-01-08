@@ -13,5 +13,15 @@ export class CommentsDatabase extends BaseDatabase {
       .connection(CommentsDatabase.TABLE_COMMENTS)
       .insert(commentDB)
   }
+  
+  public async findCommentsByPostId(id: string): Promise<any> {
+    const commentsDB: any = await BaseDatabase.connection(
+      CommentsDatabase.TABLE_COMMENTS
+    )
+      .select()
+      .where(`${CommentsDatabase.TABLE_COMMENTS}.post_id`, "=", `${id}`);
+
+    return commentsDB;
+  }
 
 }
