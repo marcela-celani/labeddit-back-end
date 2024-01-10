@@ -1,4 +1,5 @@
 import { CommentsDatabase } from "../database/CommentsDatabase";
+import { PostsDatabase } from "../database/PostsDatabase";
 import {
   CreateCommentsInputDTO,
   CreateCommentsOutputDTO,
@@ -19,7 +20,8 @@ export class CommentsBusiness {
   constructor(
     private commentsDatabase: CommentsDatabase,
     private idGenerator: IdGenerator,
-    private tokenManager: TokenManager
+    private tokenManager: TokenManager,
+    private postDatabase: PostsDatabase
   ) {}
 
   // regras de negocio
@@ -50,6 +52,8 @@ export class CommentsBusiness {
 
     const commentDB = comment.toDBModel();
     await this.commentsDatabase.insertComment(commentDB);
+
+    await this.postDatabase.updateCommentNumber(postId)
   };
 
   public getComments = async (
@@ -97,23 +101,23 @@ export class CommentsBusiness {
       throw new UnauthorizedError("Token inválido!");
     }
 
-    const commentWithCreatorName =
+    const commentDbWithCreatorName =
       await this.commentsDatabase.findCommentWithCreatorNameById(commentId);
 
-    if (!commentWithCreatorName) {
+    if (!commentDbWithCreatorName) {
       throw new NotFoundError("Comment com esta 'id' não existe");
     }
 
     const comment = new Comment(
-        commentWithCreatorName.id,
-        commentWithCreatorName.post_id,
-        commentWithCreatorName.content,
-        commentWithCreatorName.likes,
-        commentWithCreatorName.dislikes,
-        commentWithCreatorName.created_at,
-        commentWithCreatorName.updated_at,
-        commentWithCreatorName.creator_id,
-        commentWithCreatorName.creator_name,
+        commentDbWithCreatorName.id,
+        commentDbWithCreatorName.post_id,
+        commentDbWithCreatorName.content,
+        commentDbWithCreatorName.likes,
+        commentDbWithCreatorName.dislikes,
+        commentDbWithCreatorName.created_at,
+        commentDbWithCreatorName.updated_at,
+        commentDbWithCreatorName.creator_id,
+        commentDbWithCreatorName.creator_name,
     );
 
     const likeSqlite = like ? 1 : 0;

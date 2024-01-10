@@ -17,7 +17,7 @@ export class CommentsController {
     try {
       const input = CreateCommentsSchema.parse({
         content: req.body.content,
-        postId: req.params.id,
+        postId: req.params.post_id,
         token: req.headers.authorization
       })
 
@@ -41,7 +41,7 @@ export class CommentsController {
     try {
       const input: GetCommentsInputDTO = GetCommentsSchema.parse({
         token: req.headers.authorization,
-        postId: req.params.id
+        postId: req.params.post_id
       });
 
       const response = await this.commentsBusiness.getComments(input);
@@ -63,7 +63,7 @@ export class CommentsController {
       const input = LikeOrDislikeCommentSchema.parse({
         like: req.body.like,
         token: req.headers.authorization,
-        commentId: req.params.id //ISSO NAO VAI FUNCIONAR!
+        commentId: req.params.comment_id
       })
 
       const output = await this.commentsBusiness.likeOrDislikeComment(input)

@@ -14,6 +14,19 @@ export class PostsDatabase extends BaseDatabase {
       .insert(postDB)
   }
 
+  public updateCommentNumber = async (postId:string): Promise<void> => {
+    const [postDB]: PostDB[] = await BaseDatabase
+      .connection(PostsDatabase.TABLE_POSTS)
+      .where({ id: postId })
+
+      await BaseDatabase
+      .connection(PostsDatabase.TABLE_POSTS)
+      .update({
+        comments: postDB.comments + 1
+      })
+      .where({ id: postId }) 
+  }
+
   public getPostsWithCreatorName = async (): Promise<PostDBWithCreatorName[]> => {
     const postsDB = await BaseDatabase
       .connection(PostsDatabase.TABLE_POSTS)
@@ -23,6 +36,7 @@ export class PostsDatabase extends BaseDatabase {
         `${PostsDatabase.TABLE_POSTS}.content`,
         `${PostsDatabase.TABLE_POSTS}.likes`,
         `${PostsDatabase.TABLE_POSTS}.dislikes`,
+        `${PostsDatabase.TABLE_POSTS}.comments`,
         `${PostsDatabase.TABLE_POSTS}.created_at`,
         `${PostsDatabase.TABLE_POSTS}.updated_at`,
         `${UserDatabase.TABLE_USERS}.name as creator_name`

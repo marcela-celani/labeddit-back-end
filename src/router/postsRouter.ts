@@ -23,16 +23,19 @@ const commentsController = new CommentsController(
     new CommentsBusiness(
         new CommentsDatabase(),
         new IdGenerator(),
-        new TokenManager()
+        new TokenManager(),
+        new PostsDatabase()
     )
 )
 
 postsRouter.post("/", postsController.createPost)
 
-postsRouter.post("/:id/comments", commentsController.createComment)
+postsRouter.post("/:post_id/comments", commentsController.createComment)
 
 postsRouter.get("/", postsController.getPosts)
 
-postsRouter.get("/:id/comments", commentsController.getComments);
+postsRouter.get("/:post_id/comments", commentsController.getComments);
 
-postsRouter.put("/:id/like", postsController.likeOrDislikePost)
+postsRouter.put("/:post_id/like", postsController.likeOrDislikePost)
+
+postsRouter.put("/:post_id/comments/:comment_id/like", commentsController.likeOrDislikeComment)
