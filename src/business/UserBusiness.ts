@@ -21,8 +21,14 @@ export class UserBusiness {
   public signup = async (input: SignUpInputDTO): Promise<SignUpOutputDTO> => {
 
     const { name, email, password } = input
-    const id = this.idGenerator.generate()
+    
+    const isEmailRegistered = await this.userDatabase.findUserByEmail(email)
 
+    if (isEmailRegistered) {
+      throw new BadRequestError("email já existe")
+    }
+    
+    const id = this.idGenerator.generate()
     const hashedPassword = await this.hashManager.hash(password)
 
     const user = new User(
