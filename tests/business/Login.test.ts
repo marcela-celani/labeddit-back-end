@@ -16,18 +16,18 @@ describe("Testando login", () => {
     new HashManagerMock()
   );
 
-  // test("deve gerar token ao logar", async () => {
-  //   const input = LoginSchema.parse({
-  //     email: "user@email.com",
-  //     password: "user123",
-  //   });
+  test("deve gerar token ao logar", async () => {
+    const input = LoginSchema.parse({
+      email: "user@email.com",
+      password: "user123",
+    });
 
-  //   const output = await userBusiness.login(input);
+    const output = await userBusiness.login(input);
 
-  //   expect(output).toEqual({
-  //     token: "token-mock-user",
-  //   });
-  // }); // AO COMPARAR SENHAS, ELE DIZ QUE ESTÁ INCORRETA
+    expect(output).toEqual({
+      token: "token-mock-user",
+    });
+  }); // AO COMPARAR SENHAS, ELE DIZ QUE ESTÁ INCORRETA
 
 
   test("deve disparar erro se o schema DTO não receber um email com uma string valida", async () => {
