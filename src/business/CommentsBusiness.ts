@@ -64,7 +64,7 @@ export class CommentsBusiness {
     const payload = this.tokenManager.getPayload(token);
 
     if (!payload) {
-      throw new BadRequestError("Token inválido");
+      throw new UnauthorizedError("Token inválido");
     }
 
     const commentsDB = await this.commentsDatabase.findCommentsByPostId(postId);
@@ -72,17 +72,17 @@ export class CommentsBusiness {
     const commentsModel = commentsDB.map((commentDB: any) => {
       const comment = new Comment(
         commentDB.id,
-        commentDB.postId,
+        commentDB.post_id,
         commentDB.content,
         commentDB.likes,
         commentDB.dislikes,
-        commentDB.createdAt,
-        commentDB.updatedAt,
-        commentDB.creatorId,
-        commentDB.creatorName
+        commentDB.created_at,
+        commentDB.updated_at,
+        commentDB.created_at,
+        commentDB.creator_name
       );
 
-      return comment.toBusinessModel();
+      return comment.toBusinessModel()
     });
 
     const response: GetCommentsOutputDTO = commentsModel;
