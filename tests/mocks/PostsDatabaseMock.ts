@@ -1,6 +1,5 @@
-import { LikeDislikeDB, POST_LIKES, PostDB, PostDBWithCreatorName } from "../../src/models/Post";
+import { PostDB } from "../../src/models/Post";
 import { BaseDatabase } from "../../src/database/BaseDatabase";
-import { UserDatabase } from "../../src/database/UserDatabase";
 
 const postsMock: PostDB[] = [
   {
@@ -25,95 +24,26 @@ const postsMock: PostDB[] = [
   }
 ]
 
-const likesDislikesMock: LikeDislikeDB[] = [
-  {
-    user_id: 'user1',
-    post_id: 'post1',
-    like: 1
-  },
-  {
-    user_id: 'user2',
-    post_id: 'post1',
-    like: 0
-  }
-];
-
 export class PostsDatabaseMock extends BaseDatabase {
-  public static TABLE_POSTS = "posts";
-  public static TABLE_LIKES_DISLIKES_POSTS = "likes_dislikes_posts";
+    public static TABLE_POSTS = "posts"
 
-  public async insertPost(postDB: PostDB): Promise<void> {
-    postsMock.push(postDB);
-  }
+  public async findPosts(
+    q: string | undefined
+  ): Promise<PostDB[]> {
+    if (q) {
+      return postsMock
+        .filter((post) => post.name.toLocaleLowerCase()
+          .includes(q.toLocaleLowerCase()))
 
-  public async updateCommentNumber(postId: string): Promise<void> {
-    const post = postsMock.find((post) => post.id === postId);
-    if (post) {
-      post.comments += 1;
-    }
-  }
-
-  public async findLikeDislike(likeDislikeDB: LikeDislikeDB): Promise<POST_LIKES | undefined> {
-    const likeDislike = likesDislikesMock.find(
-      (ld) => ld.user_id === likeDislikeDB.user_id && ld.post_id === likeDislikeDB.post_id
-    );
-
-    if (likeDislike === undefined) {
-      return undefined;
-    } else if (likeDislike.like === 1) {
-      return POST_LIKES.LIKED;
     } else {
-      return POST_LIKES.DISLIKED;
+      return postsMock
     }
   }
 
-  public async updatePost(postDB: PostDB): Promise<void> {
-    const index = postsMock.findIndex((post) => post.id === postDB.id);
-    if (index !== -1) {
-      postsMock[index] = { ...postsMock[index], ...postDB };
-    }
-  }
-
-  public async deletePostById(id: string): Promise<void> {
-    const index = postsMock.findIndex((post) => post.id === id);
-    if (index !== -1) {
-      postsMock.splice(index, 1);
-    }
-  }
-
-  public async findPostById(id: string): Promise<PostDB | undefined> {
-    return postsMock.find((post) => post.id === id);
-  }
-
-  public async findPostWithCreatorNameById(id: string): Promise<PostDBWithCreatorName | undefined> {
-    const post = await this.findPostById(id);
-    if (post) {
-      const creator = await UserDatabase.findUserByEmail(post.creator_id);
-      return { ...post, creator_name: creator?.name || "Unknown" };
-    }
-    return undefined;
-  }
-
-  public async removeLikeDislike(likeDislikeDB: LikeDislikeDB): Promise<void> {
-    const index = likesDislikesMock.findIndex(
-      (ld) => ld.user_id === likeDislikeDB.user_id && ld.post_id === likeDislikeDB.post_id
-    );
-    if (index !== -1) {
-      likesDislikesMock.splice(index, 1);
-    }
-  }
-
-  public async updateLikeDislike(likeDislikeDB: LikeDislikeDB): Promise<void> {
-    const index = likesDislikesMock.findIndex(
-      (ld) => ld.user_id === likeDislikeDB.user_id && ld.post_id === likeDislikeDB.post_id
-    );
-    if (index !== -1) {
-      likesDislikesMock[index] = { ...likesDislikesMock[index], ...likeDislikeDB };
-    }
-  }
-
-  public async insertLikeDislike(likeDislikeDB: LikeDislikeDB): Promise<void> {
-    likesDislikesMock.push(likeDislikeDB);
+  public async findPostById(
+    id: string
+  ): Promise<PostDB | undefined> {
+    return postsMock.filter(post => post.id === id)[0]
   }
 
 }
