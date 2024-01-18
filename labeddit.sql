@@ -14,6 +14,7 @@ INSERT INTO users (id, name, email, password, role) VALUES
 ('u001', 'Admin', 'admin@email.com', 'admin00', 'ADMIN');
 
 -- tipo ADMIN e senha = admin00
+-- 
 
 SELECT * FROM users;
 
