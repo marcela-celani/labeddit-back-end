@@ -4,6 +4,10 @@ import { PostsBusiness } from '../business/PostsBusiness'
 import { IdGenerator } from '../services/IdGenerator'
 import { TokenManager } from '../services/TokenManager'
 import { PostsDatabase } from '../database/PostsDatabase'
+import { CommentsController } from '../controller/CommentsController'
+import { CommentsBusiness } from '../business/CommentsBusiness'
+import { CommentsDatabase } from '../database/CommentsDatabase'
+
 
 export const postsRouter = express.Router()
 
@@ -15,12 +19,23 @@ const postsController = new PostsController(
     )
 )
 
+const commentsController = new CommentsController(
+    new CommentsBusiness(
+        new CommentsDatabase(),
+        new IdGenerator(),
+        new TokenManager(),
+        new PostsDatabase()
+    )
+)
+
 postsRouter.post("/", postsController.createPost)
+
+postsRouter.post("/:post_id/comments", commentsController.createComment)
 
 postsRouter.get("/", postsController.getPosts)
 
-postsRouter.put("/:id", postsController.editPost)
+postsRouter.get("/:post_id/comments", commentsController.getComments);
 
-postsRouter.delete("/:id", postsController.deletePost)
+postsRouter.put("/:post_id/like", postsController.likeOrDislikePost)
 
-postsRouter.put("/:id/like", postsController.likeOrDislikePost)
+postsRouter.put("/:post_id/comments/:comment_id/like", commentsController.likeOrDislikeComment)

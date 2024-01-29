@@ -1,32 +1,19 @@
--- Active: 1701135183107@@127.0.0.1@3306
+-- Active: 1703065567855@@127.0.0.1@3306
 
 CREATE TABLE
     users (
         id TEXT PRIMARY KEY UNIQUE NOT NULL,
-        nickname TEXT NOT NULL,
+        name TEXT NOT NULL,
         email TEXT UNIQUE NOT NULL,
         password TEXT NOT NULL,
         role TEXT NOT NULL,
         created_at TEXT DEFAULT (DATETIME()) NOT NULL
     );
 
-INSERT INTO
-    users (
-        id,
-        nickname,
-        email,
-        password,
-        role
-    )
-VALUES (
-        'admin',
-        'Admin',
-        'admin@email.com',
-        '21232f297a57a5a743894a0e4a801fc3',
-        'ADMIN'
-    );
+INSERT INTO users (id, name, email, password, role) VALUES
+('u001', 'Admin', 'admin@email.com', 'admin00', 'ADMIN');
 
--- tipo ADMIN e senha = admin
+-- tipo ADMIN e senha = admin00
 
 SELECT * FROM users;
 
@@ -95,7 +82,9 @@ CREATE TABLE
         user_id TEXT NOT NULL,
         comment_id TEXT NOT NULL,
         like INTEGER NOT NULL,
-        FOREIGN KEY (user_id) REFERENCES users (id) ON UPDATE CASCADE ON DELETE CASCADE,
+        FOREIGN KEY (user_id) REFERENCES users (id) 
+        ON UPDATE CASCADE 
+        ON DELETE CASCADE,
         FOREIGN KEY (comment_id) REFERENCES comments (id) 
         ON UPDATE CASCADE 
         ON DELETE CASCADE
