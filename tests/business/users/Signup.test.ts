@@ -1,11 +1,11 @@
 import { ZodError } from "zod";
-import { UserBusiness } from "../../src/business/UserBusiness";
-import { SignUpSchema } from "../../src/dtos/user/signUp.dto";
-import { HashManagerMock } from "../mocks/HashManagerMock";
-import { IdGeneratorMock } from "../mocks/IdGeneratorMock";
-import { TokenManagerMock } from "../mocks/TokenManagerMock";
-import { UserDatabaseMock } from "../mocks/UserDatabaseMock";
-import { BadRequestError } from "../../src/errors/BadRequestError";
+import { UserBusiness } from "../../../src/business/UserBusiness";
+import { SignUpSchema } from "../../../src/dtos/user/signUp.dto";
+import { HashManagerMock } from "../../mocks/HashManagerMock";
+import { IdGeneratorMock } from "../../mocks/IdGeneratorMock";
+import { TokenManagerMock } from "../../mocks/TokenManagerMock";
+import { UserDatabaseMock } from "../../mocks/UserDatabaseMock";
+import { BadRequestError } from "../../../src/errors/BadRequestError";
 
 describe("Testando signup", () => {
   const userBusiness = new UserBusiness(
