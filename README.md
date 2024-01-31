@@ -8,9 +8,9 @@ O projeto consiste em criar uma aplicação web, utilizando ReactJS no front-end
 Repositórios
 Para facilitar o processo de deploy, os códigos foram divididos em repositórios separados para o front-end e back-end. Certifique-se de clonar ambos os repositórios para ter o projeto completo.
 
-[Repositório do Front-end](https://github.com/marcela-celani/labeddit-front-end)
+[Repositório do Front-end](https://github.com/marcela-celani/labeddit-front-end) | 🔗[Deploy](https://labeddit-front-gzrqi60sj-marcela-celani.vercel.app/login)
 
-[Repositório do Back-end](https://github.com/marcela-celani/labeddit-back-end)
+[Repositório do Back-end](https://github.com/marcela-celani/labeddit-back-end) | 🔗[Deploy API](https://documenter.getpostman.com/view/28315168/2s9YsT4nbL)
 
 ## Informação Geral
 
