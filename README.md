@@ -26,7 +26,7 @@ Acesso Rápido
 * Express.Js
 * TypeScript
 * Banco de dados SQLite
-* POO e Arquitetura em camadas (business, controller, database, router)
+* POO (Programação Orientada a Objetos) e Arquitetura em camadas (business, controller, database, router)
 * Verificações com Zod e tratamento de erros
 * Testes unitários em Jest
 * Deploy da API utilizando [Postman](https://www.postman.com)
