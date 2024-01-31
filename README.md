@@ -22,7 +22,7 @@ Acesso Rápido
 ## Tecnologias
 👩🏻‍💻 Este projeto foi criado utilizando as seguintes tecnologias:
 
-* API Rest
+* API Rest e Requisições HTTP
 * Express.Js
 * TypeScript
 * Banco de dados SQLite
