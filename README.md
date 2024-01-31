@@ -22,6 +22,8 @@ Acesso Rápido
 ## Tecnologias
 👩🏻‍💻 Este projeto foi criado utilizando as seguintes tecnologias:
 
+* API Rest
+* Express.Js
 * TypeScript
 * Banco de dados SQLite
 * POO e Arquitetura em camadas (business, controller, database, router)
